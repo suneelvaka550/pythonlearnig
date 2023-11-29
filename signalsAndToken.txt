@@ -1,0 +1,50 @@
+throught command line using token generate
+ 
+python manage.py drf_create_token<username>
+
+python manage.py drf_create_token suneel
+
+response:-  59b10bae6daf35f1c5bce3b5e2ea6ab4e344c8a1
+
+
+And anothe way using :- admin panel using create token generate 
+
+
+Another way create token :- By Exposing Endpoints 
+
+
+
+#singnales thought token generation
+
+
+models.py 
+
+from django.db import models
+
+from django.conf import settings
+from django.db.models.signals import post_save
+from rest_framework.authtoken.models import Token
+from django.dispatch import receiver
+
+
+class Studentdata(models.Model):
+    name=models.CharField(max_length=50)
+    city=models.CharField(max_length=50)
+    age=models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+@receiver(post_save,sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender,instance=None,created=False,**kwargs):
+    if created:
+        Token.objects.create(user=instance)
+    
+
+
+
+
+
+
+
+

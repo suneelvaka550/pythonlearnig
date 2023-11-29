@@ -1,0 +1,100 @@
+from django.shortcuts import render
+import rest_framework
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import viewsets
+from .models import *
+from .serializers import *
+
+class studentdata(viewsets.ViewSet):
+    def list(self,request):
+        queryset=Student.objects.all()
+        serializer=Studentserializers(queryset,many=True)
+        return Response(serializer.data)
+    def create(self,request):
+        serializer=Studentserializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    def retrieve(self,request,pk=None):
+        id=pk
+        if id is not None:
+            queryset=Student.objects.get(id=id)
+            serializer=Studentserializers(queryset)
+            return Response(serializer.data)
+    def update(self,request,pk):
+        id=pk
+        queryset=Student.objects.get(id=id)
+        serializer=Studentserializers(queryset,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+    def destroy(self,request,pk):
+        id=pk
+        queryset=Student.objects.get(id=id)
+        queryset.delete()
+        return Response({"sucessfully":"the item was successfully deleted"})
+
+
+
+"""demoproject URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django import views
+from django.contrib import admin
+from django.urls import path,include
+from DemoApp import views
+from rest_framework.routers import DefaultRouter
+
+router =DefaultRouter()
+router.register('Api',views.studentdata,basename='student')
+
+
+
+
+urlpatterns = [
+
+    path('admin/', admin.site.urls),
+    path('',include(router.urls)),
+ 
+   
+   
+    
+    
+
+    
+]
+
+        
+
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    
+    
+    
+        
+    
+    

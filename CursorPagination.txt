@@ -1,0 +1,25 @@
+it is ordering the dataset based on timestamp 
+it is ordering recently created  data into first position 
+
+here we are ordering the based on name felid 
+
+
+from rest_framework.pagination import CursorPagination
+
+class CursorPagination(CursorPagination):
+    page_size=4
+    ordering='name'
+
+http://127.0.0.1:8000/getstu/?cursor=cj0xJnA9bmFyZXNo
+
+here we have the cursor param i have change the parameter 
+
+http://127.0.0.1:8000/getstu/?q=cD1zdW5lZWw%3D
+
+from rest_framework.pagination import CursorPagination
+
+class CursorPagination(CursorPagination):
+    page_size=4
+    ordering='name'
+    cursor_query_param='q'
+

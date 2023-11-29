@@ -1,0 +1,37 @@
+http://127.0.0.1:8000/getstu/?limit=6
+
+
+here we given the bydefalut limit 
+if we given more number than will get the same number of resultset
+
+from rest_framework.pagination import LimitOffsetPagination
+class LimitOffsetPagination(LimitOffsetPagination):
+   default_limit=5
+
+
+http://127.0.0.1:8000/getstu/?li=4&off=6
+
+from rest_framework.pagination import LimitOffsetPagination
+
+class LimitOffsetPagination(LimitOffsetPagination):
+   default_limit=5
+   limit_query_param='li'
+   offset_query_param='off'
+
+
+limit we have given max 8 only we will not showing the more than 8
+
+
+from rest_framework.pagination import LimitOffsetPagination
+
+class LimitOffsetPagination(LimitOffsetPagination):
+   default_limit=5
+   limit_query_param='li'
+   offset_query_param='off'
+   
+   max_limit=8
+
+
+
+
+

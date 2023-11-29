@@ -1,0 +1,119 @@
+from django.shortcuts import render
+import rest_framework
+from rest_framework.response import Response
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import ListModelMixin,CreateModelMixin,RetrieveModelMixin,DestroyModelMixin,UpdateModelMixin
+from .models import *
+from .serializers import *
+
+
+class studentdetails(GenericAPIView,ListModelMixin):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+    def get(self,request):
+        return self.list(request)
+class studentpost(GenericAPIView,CreateModelMixin):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+    def post(self,request):
+        return self.create(request)
+class studentretrieve(GenericAPIView,RetrieveModelMixin):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+    def get(self,request,**kwargs):
+        return self.retrieve(request,**kwargs)
+class studentupdate(GenericAPIView,UpdateModelMixin):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+    def put(self,request,**kwargs):
+        return self.update(request,**kwargs)
+class studentdetele(GenericAPIView,DestroyModelMixin):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+    def delete(self,request,**kwargs):
+        return self.destroy(request,**kwargs)
+
+        
+    
+    
+# project url
+
+"""demoproject URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django import views
+from django.contrib import admin
+from django.urls import path,include
+from DemoApp import views
+
+
+urlpatterns = [
+
+    path('admin/', admin.site.urls),
+    path("student/",views.studentdetails.as_view()),
+    path("studentp/",views.studentpost.as_view()),
+    path("studentr/<int:pk>",views.studentretrieve.as_view()),
+    path("studentu/<int:pk>",views.studentupdate.as_view()),
+    path("studentd/<int:pk>",views.studentdetele.as_view()),
+    
+    
+
+    
+]
+
+
+
+# another way 
+
+
+
+from django.shortcuts import render
+import rest_framework
+from rest_framework.response import Response
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import ListModelMixin,CreateModelMixin,RetrieveModelMixin,DestroyModelMixin,UpdateModelMixin
+from .models import *
+from .serializers import *
+
+
+class studentdetails(GenericAPIView,ListModelMixin,CreateModelMixin):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+    def get(self,request):
+        return self.list(request)
+    def post(self,request):
+        return self.create(request)
+
+   
+class studentretrieve(GenericAPIView,RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+    def get(self,request,**kwargs):
+        return self.retrieve(request,**kwargs)
+    def put(self,request,**kwargs):
+        return self.update(request,**kwargs)
+    def delete(self,request,**kwargs):
+        return self.destroy(request,**kwargs)
+
+
+    
+    
+    
+        
+    
+        
+        
+    
+    

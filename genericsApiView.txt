@@ -1,0 +1,93 @@
+from django.shortcuts import render
+import rest_framework
+from rest_framework.response import Response
+from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,DestroyAPIView,ListCreateAPIView,RetrieveDestroyAPIView,RetrieveUpdateAPIView,RetrieveUpdateDestroyAPIView
+from .models import *
+from .serializers import *
+
+class getallstudents(ListAPIView,CreateAPIView):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+class studetndetailsupdate(RetrieveAPIView):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+class studentu(UpdateAPIView):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+class studentde(DestroyAPIView):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+class studentCreate(ListCreateAPIView):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+class StudentRD(RetrieveDestroyAPIView):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+class StudentRU(RetrieveUpdateAPIView):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+class StudentRUD(RetrieveUpdateDestroyAPIView):
+    queryset=Student.objects.all()
+    serializer_class=Studentserializers
+    
+
+
+
+#urls.py project 
+
+
+"""demoproject URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django import views
+from django.contrib import admin
+from django.urls import path
+from DemoApp import views
+
+
+urlpatterns = [
+
+    path('admin/', admin.site.urls),
+    path("student/",views.getallstudents.as_view()),
+    path("studentid/<int:pk>/",views.studetndetailsupdate.as_view()),
+    path("studentu/<int:pk>/",views.studentu.as_view()),
+    path("studentde/<int:pk>/",views.studentde.as_view()),
+    path("studentlistc",views.studentCreate.as_view()),
+    path("StudentRD/<int:pk>/",views.StudentRD.as_view()),
+    path("StudentRU/<int:pk>/",views.StudentRU.as_view()),
+    path("StudentRUD/<int:pk>/",views.StudentRUD.as_view()),
+   
+   
+    
+    
+
+    
+]
+
+    
+    
+    
+    
+
+    
+
+
+
+    
+    
+    
+        
+    
+    
